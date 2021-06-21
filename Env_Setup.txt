@@ -1,0 +1,16 @@
+CROWDTANGLE EXTENSION
+	Insert chrome prodversion into link template in chrome:
+		https://clients2.google.com/service/update2/crx?response=redirect&prodversion=[PRODVERSION]&acceptformat=crx2,crx3&x=id%3Dklakndphagmmfkpelfkgjbkimjihpmkh%26uc
+
+SELENIUM
+	[INSERT LATER]
+
+PYAUTOGUI
+	[INSERT LATER]
+
+OPENCV3
+	Downgrade Python to Python 3.5
+		cmd: conda install python=3.5
+	Install opencv3
+		cmd: conda install -c menpo opencv3
+		https://anaconda.org/menpo/opencv3
