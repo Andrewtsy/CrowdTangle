@@ -1,3 +1,7 @@
+"""UNFINISHED – COMING SOON..."""
+
+ENVIRONMENT SETUP:
+
 CROWDTANGLE EXTENSION
 	Insert chrome prodversion into link template in chrome:
 		https://clients2.google.com/service/update2/crx?response=redirect&prodversion=[PRODVERSION]&acceptformat=crx2,crx3&x=id%3Dklakndphagmmfkpelfkgjbkimjihpmkh%26uc
