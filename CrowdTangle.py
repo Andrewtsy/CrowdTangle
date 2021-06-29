@@ -366,6 +366,7 @@ def main():
             scraper.driver.switch_to.window(scraper.driver.window_handles[0])
     # ends the scraper/driver
     scraper.driver.quit()
+    print('All Done!')
 
 if __name__ == '__main__':
     # runs the script!

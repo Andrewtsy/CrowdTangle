@@ -1,20 +1,56 @@
-"""UNFINISHED – COMING SOON..."""
+"""ENVIRONMENT SETUP"""
 
-ENVIRONMENT SETUP:
+PYTHON
+	Install Python (if not already installed) Link: https://www.python.org/downloads/
+
 
 CROWDTANGLE EXTENSION
-	Insert chrome prodversion into link template in chrome:
+	There is the crx file for CrowdTangle included in the repo, however one may need to install a different type if one has a different chrome version.
+		The one included in the repo is for Chrome version 91.0.4472.114
+			Link to info on getting Chrome version: https://www.businessinsider.com/what-version-of-google-chrome-do-i-have
+			(one can skip the crowdtangle extension installation steps if one's version matches 91.0.4472.114 above)
+
+	There are a couple of ways to obtain a different Chrome version crx file if needed. The easiest way is to copy and paste this link template into chrome.
 		https://clients2.google.com/service/update2/crx?response=redirect&prodversion=[PRODVERSION]&acceptformat=crx2,crx3&x=id%3Dklakndphagmmfkpelfkgjbkimjihpmkh%26uc
 
+		Note that you must replace [PROVERSION] with your current Chrome version. This can be found by clicking on the 3 dots in Chrome->Help->About Google Chrome (same way as described in the businessinsider article).
+			Link to info on link template: https://stackoverflow.com/questions/7184793/how-to-download-a-crx-file-from-the-chrome-web-store-for-a-given-id
+
+		Once downloaded, rename the file and move to base directory to replace old crx file.
+
+
+
+
+[IMPORTANT: SOME TYPE OF VIRTUAL ENVIRONMENT/PACKAGE MANAGER RECOMMENDED TO KEEP NEEDED PACKAGES SEPARATE FROM OTHERS I.E. PIP IS IFFY]
+	Link to guides on python's virtual environments: https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/
+							 https://realpython.com/python-virtual-environments-a-primer/
+		Note: if used, most package managers should have some sort of equivalent environment tool (ex: anaconda and conda environments) and one can search up specific manager installation steps for each package.
+	Link to article using homebrew and virtualenv: https://medium.com/swlh/how-to-setup-your-python-projects-1eb5108086b1
+	Most installations use command line/prompt/bash/etc.
+
+
 SELENIUM
-	[INSERT LATER]
+	If not already installed, setup steps for Selenium & driver:
+		First, install Selenium using package manager
+			Link to Selenium Python docs: https://selenium-python.readthedocs.io/installation.html
+	 	Second, download ChromeDriver for applicable Chrome version (found from before) and set executable path:
+			There is a zipped ChromeDriver file in the repo one can use for reference if they have the same Chrome version as me (91.0.4472.114). It'd probably be wise to follow the below steps anyway, however.
+			Link for download: https://sites.google.com/a/chromium.org/chromedriver/downloads
+			Link to info on setting path (if one wants, I also moved the file into the base directory as seen in the repo): https://www.selenium.dev/documentation/en/webdriver/driver_requirements/
+
+	Note: I followed roughly the above path for my system, however there might be an easier alternative using homebrew.
+		I haven't tried it, but this Medium article seems good:
+			Link to homebrew article: https://kelvinmwinuka.medium.com/running-selenium-on-macos-using-chromedriver-96ef851282b5
+
 
 PYAUTOGUI
-	[INSERT LATER]
+	Pyautogui should be relatively straightforward (reminder that some sort of virtual environment/package manager is recommended)
+	Link to pyautogui installation docs: https://pyautogui.readthedocs.io/en/latest/install.html
 
-OPENCV3
-	Downgrade Python to Python 3.5
-		cmd: conda install python=3.5
+
+OPENCV (this is used in a relatively minor but important part used for locate by image confidence measures)
 	Install opencv3
-		cmd: conda install -c menpo opencv3
-		https://anaconda.org/menpo/opencv3
+		Link to pypi opencv installation info: https://pypi.org/project/opencv-python/
+		Link to opencv docs (not really necessary but if one's curious): https://docs.opencv.org/master/
+
+Note: Environment setup can be a pain – I had trouble figuring this out myself – but you'll get through it :). If you have questions, you can contact me at andrew.sy.tao@gmail.com
