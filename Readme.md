@@ -2,10 +2,11 @@ This respository hosts the CrowdTangle automation project created for Professor 
 
 It uses Python and other packages to automate the task of accessing the CrowdTangle Chrome extension for a given list of articles and downloading data csv files for each social media (Facebook, Twitter, Reddit, Instagram).
 
-One should follow the environment setup steps in the dependcies file first.
+One should follow the environment setup steps in the dependencies file first.
 Then one should add their Facebook username and password into the 'cred.txt' on the first two lines, plain. I wasn't sure if it was necessary, but one can alter the script slightly to read from an encrypted file or from direct user input if they would like.
 Before running the script, one should first input their articles into the 'input.csv' file so that each article link is placed in their own row without adornments.
 To run the script, simply open command line/prompt/bash/etc. to the correct base directory, activate the correct environment (assuming one is setup), and run:
+	
 	python crowdtangle.py
 	(python3 crowdtangle.py in some setups)
 
