@@ -1,59 +1,148 @@
 """ENVIRONMENT SETUP"""
 
-PYTHON
-	Install Python (if not already installed) Link: https://www.python.org/downloads/
+Notes before we begin:
+[IMPORTANT: ALTHOUGH NOT REQUIRED, SOME TYPE OF VIRTUAL ENVIRONMENT/SPECIALIZED PACKAGE MANAGER IS RECOMMENDED
+TO KEEP NEEDED PACKAGES SEPARATE FROM OTHERS I.E. PIP BY ITSELF IS IFFY]
+	A virtual environment is recommended so as not to scramble various packages and dependencies.
+	This may not be so much an issue now, but not using it may mess things up when creating later projects with different package versions. 
+	In short, different environments keep the different packages separate and not messing with each other.
+	
+	Links to guides on python's virtual environments if you're curious: 
+		https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/
+		https://realpython.com/python-virtual-environments-a-primer/
+
+		Note: if used, most specialized package managers should have some sort of equivalent environment tool
+		      (I used anaconda and conda environments for example) and you can search up specific manager installation steps for each package.
+	
+	Link to article using homebrew and virtualenv as an example: https://medium.com/swlh/how-to-setup-your-python-projects-1eb5108086b1
+
+	You should use a command line interface (CLI) to navigate to the project directory (and initiate environment if wanted) and execute the following installations.
+	The following instructions are written for using virtualenv in a Windows OS (you can adapt this if you're using a different package manager system).
+	Instructions for setting up virtualenv is detailed in the virtualenv section.
+
+	Make sure your CLI is in the CrowdTangle directory. Commands are written to be used in your CLI.
+
+____________________________________________________________________________________________________
 
 
-CROWDTANGLE EXTENSION
-	There is the crx file for CrowdTangle included in the repo, however one may need to install a different type if one has a different chrome version.
-		The one included in the repo is for Chrome version 91.0.4472.114. One can check their own Chrome version by clicking on the 3 dots in upper left corner of the Google browser->Help->About Google Chrome
+PYTHON/PIP installation
+	Python is the language used for this program. pip is the most commonly used package manager for python.
+
+	1. Install Python (if not already installed) Link to downloads: https://www.python.org/downloads/
+		You can check if python is installed by running in your CLI:
+			
+			python -V
+
+		Link for more info (tutorial) on installing python if you would like: https://realpython.com/installing-python/
+	Note: the script should be supported with most versions of python 3. However, for the sake of consistency,
+	      you should choose the current latest version (3.9.6 as of 6/28/2021)
+
+	2. Install pip
+	You can use different methods/package managers if wanted, however the following steps are going to be shown for pip. 
+		Check if pip installed by running (should be installed by default):
+
+			pip help
+		
+		If it isn't installed, check this link for info on installation steps: https://pip.pypa.io/en/stable/installing/			
+
+
+VIRTUALENV installation and setup (technically optional but recommended):
+	Virtualenv is a popular method of creating separate environments (described in the beginning).
+
+	If not already installed, install virtualenv by running:
+
+		pip install --user virtualenv
+
+	Create a virtual environment named 'CrowdTangle' by running:
+
+		python -m venv CrowdTangle
+
+	Next, activate the virtual environment by running:
+
+		CrowdTangle\Scripts\activate
+
+	Don't do this now, but you can deactivate the environment after you're done with the program by entering:
+
+		deactivate
+
+
+CROWDTANGLE EXTENSION download
+	We want to download the crx file for the CrowdTangle Chrome extension to let the program be able to access the extension.
+
+	There is a crx file for CrowdTangle included in the repo, however you may need to install a different type if you have a different chrome version.
+		The one included in the repo is for Chrome version 91.0.4472.114. You can check your own Chrome version by clicking on the 3 dots in upper left corner of the Google browser->Help->About Google Chrome
 			Link for more info on getting Chrome version: https://www.businessinsider.com/what-version-of-google-chrome-do-i-have
-			(one can skip the crowdtangle extension installation steps and use the included crx if one's version matches 91.0.4472.114)
+			(you can skip the crowdtangle extension installation steps and use the included crx if your version matches 91.0.4472.114)
 
 	There are a couple of ways to obtain a different Chrome version crx file if needed. The easiest way is to copy and paste this link template into chrome.
 		https://clients2.google.com/service/update2/crx?response=redirect&prodversion=[PRODVERSION]&acceptformat=crx2,crx3&x=id%3Dklakndphagmmfkpelfkgjbkimjihpmkh%26uc
-
-		Replace [PROVERSION] with your current Chrome version (information on how to obtain one's Chrome version is described above).
+		IMPORTANT: Replace [PROVERSION] with your current Chrome version (information on how to obtain your Chrome version is described above).
 			Link to info on link template: https://stackoverflow.com/questions/7184793/how-to-download-a-crx-file-from-the-chrome-web-store-for-a-given-id
 
-		Once downloaded, rename the file to 'crowdtangle.crx' and move to base directory and replace old crx file.
+		Once downloaded, rename the file to 'crowdtangle.crx', move to CrowdTangle repo base directory and replace old crx file.
 
 
+SELENIUM installation/path setup
+	Selenium is a very popular framework for web apps/automation
 
-
-[IMPORTANT: ALTHOUGH NOT REQUIRED, SOME TYPE OF VIRTUAL ENVIRONMENT/PACKAGE MANAGER RECOMMENDED TO KEEP NEEDED PACKAGES SEPARATE FROM OTHERS I.E. PIP IS IFFY]
-	Link to guides on python's virtual environments if one is curious: https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/
-							 		   https://realpython.com/python-virtual-environments-a-primer/
-		Note: if used, most package managers should have some sort of equivalent environment tool (I used anaconda and conda environments) and one can search up specific manager installation steps for each package.
-	Link to article using homebrew and virtualenv as an example: https://medium.com/swlh/how-to-setup-your-python-projects-1eb5108086b1
-	One should use a terminal – command line/prompt/bash/etc. to navigate to the project directory (and initiate environment if wanted) and execute the following installations.
-
-
-SELENIUM
 	If not already installed, setup steps for Selenium & driver
-		Step 1: install Selenium using package manager
-			if using pip enter the following into terminal: pip install selenium
-				Link to Selenium Python docs for more info: https://selenium-python.readthedocs.io/installation.html
-	 	Step 2: download ChromeDriver for applicable Chrome version (found from before) and set executable path
-			There is a zipped ChromeDriver file in the repo one can use for reference if they have Chrome version 91.0.4472.114. It'd probably be wise to follow the following steps anyway, and replace the ref file anyway, however.
-				Link for download: https://sites.google.com/a/chromium.org/chromedriver/downloads
-				Link to info on setting path (this depends more on one's preferences, so I'm setting the docs for reference): https://www.selenium.dev/documentation/en/webdriver/driver_requirements/
+		1. Install Selenium using package manager
+			if using pip enter the following into your CLI: 
 
-	Note: I followed roughly the above path for my system, however there might be an easier alternative using homebrew.
+				pip install selenium
+				
+			Link to Selenium Python docs for more info: https://selenium-python.readthedocs.io/installation.html
+
+	 	2. Download ChromeDriver for applicable Chrome version (found from before) and os
+			Link for download: https://sites.google.com/a/chromium.org/chromedriver/downloads
+			Make sure to unzip the folder
+
+		3. Set path or location			
+			One way to let the script use the driver is to set driver path
+ 				1) create directory C:\WebDriver\bin
+				2) move downloaded chromedriver folder into directory (object should look like C:\WebDriver\bin\chromedriver_[whicheveradded]\chromedriver.exe
+				3) open command prompt as admin and run:
+
+					setx /m path "%path%;C:\WebDriver\bin\"
+
+			Link to info on setting path (this depends more on one's preferences, so I'm setting the docs for reference): https://www.selenium.dev/documentation/en/webdriver/driver_requirements/
+
+			As an alternative, you can simply place the driver in the repo directory (this is easier and works fine for this program, but doesn't let other applications use the driver)
+				1) move the application file out of its old folder and into the base repo directory (that's it :)
+
+	Note: I followed roughly the above path for my system, however there might be another alternative if you use homebrew.
 		I haven't tried it, but this Medium article seems good:
 			Link to article on setup for homebrew: https://kelvinmwinuka.medium.com/running-selenium-on-macos-using-chromedriver-96ef851282b5
 
 
-PYAUTOGUI
-	Pyautogui should be relatively straightforward (reminder that some sort of virtual environment/package manager is recommended)
-		if using pip enter the following into terminal: pip install pyautogui
-			Link to pyautogui installation docs for more info: https://pyautogui.readthedocs.io/en/latest/install.html
+PYAUTOGUI installation
+	Pyautogui is a python library for screen automation. Installation should be relatively straightforward
+
+		if using pip enter the following into terminal: 
+
+			pip install pyautogui
+			
+		Link to pyautogui installation docs for more info: https://pyautogui.readthedocs.io/en/latest/install.html
 
 
-OPENCV (this is used in a relatively minor but important part used for locate by image confidence measures)
-	Install opencv3
-		if using pip enter the following into terminal: pip install opencv-python
-			Link to pypi opencv for more installation info: https://pypi.org/project/opencv-python/
-			Link to opencv docs (not really necessary but if one's curious): https://docs.opencv.org/master/
+OPENCV & PILLOW installations
+	OpenCV and Pillow are both powerful libraries for computer vision (used in this case for identifying images on the screen)
 
-Note: Environment setup can be a pain – I had some trouble figuring this out myself – but you'll get through it :). If you have questions, you can contact me at andrew.sy.tao@gmail.com
+	1. Install opencv3
+		If using pip enter the following into terminal:
+			
+			pip install opencv-python
+
+		Link to pypi opencv for more installation info: https://pypi.org/project/opencv-python/
+		Link to opencv docs (not really necessary but if you're curious): https://docs.opencv.org/master/
+
+	2. Install Pillow
+		If using pip enter following into terminal:
+	
+			pip install Pillow
+
+		Link to Pillow installation docs for more info: https://pillow.readthedocs.io/en/stable/installation.html
+
+All Done!
+
+Note: Environment setup can be a pain – I had some trouble figuring this out myself – but you'll get through it :). If you have any questions, you can contact me at andrew.sy.tao@gmail.com

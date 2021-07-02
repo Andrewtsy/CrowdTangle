@@ -1,12 +1,13 @@
-"""This script was created by Andrew Tao for Professor Jennifer Pan
-in order to automate the CrowdTangle Chrome Extension.
+"""Author - Andrew Tao
+
+Script to automate the CrowdTangle Chrome Extension.
 
 Users should enter csv file of article links upon inquiry.
 
 Pauses (time.sleep()) are sometimes necessary, other times not.
 This may depend on system's/browser's speed/noise and is subject
 to adjustments according to user wishes.
-Locate by element confidence may also be subject to change according
+Locate by element confidence levels may also be subject to change according
 to screen specs/ratio.
 When used in the docs, 'element' refers to the thing that is clicked on screen.
 
@@ -48,7 +49,7 @@ class Scraper:
         not technically needed as an instance attribute in this scenario,
         but could be nice if one wanted to build/adjust multiple 'scrapers' with different options
     driver : class
-        all important Selenium driver – heart of the object
+        all important Selenium driver - the heart of the object
 
     Methods
     -------
@@ -81,9 +82,9 @@ class Scraper:
 
         # This simply reads text file for Facebook username and password
         # File should be in format:
-        # [USERNAME]
+        # [EMAIL]
         # [PASSWORD]
-        # encrypted file or direct user input may be substitued if user would like
+        # encrypted file or direct user input may be substituted if user would like
         with open('cred.txt', 'r') as filereader:
             self.un, self.pw = map(lambda x: x.strip('\n'), filereader.readlines())
 
@@ -138,7 +139,7 @@ class Scraper:
             image = 'images/{}_icon.png'.format(i.lower())
             self.click(i, 0.7, image, clicked=False)
 
-    def enter(self, link):
+    def enter(self, link, row):
         """
         Accesses each individual article while seeing if each link is valid.
         If invalid, the CrowdTangle is not used.
@@ -161,12 +162,12 @@ class Scraper:
             self.driver.get(link)
         except selenium.common.exceptions.InvalidArgumentException:
             # if link is invalid exception is thrown, page is closed, and driver moves on to next link
-            print('{} is invalid url (aka unable to access)'.format(link))
+            print('link number {} is invalid url (aka unable to access)'.format(row))
             self.driver.close()
             self.driver.switch_to.window(self.driver.window_handles[0])
             return False
         assert 'No results found.' not in self.driver.page_source
-        # attempts to set current_title to filtered string with only alphanumeric characters
+        # attempts to set current_title to filtered string with only alphanumeric characters kept
         # this is done so there are no encoding/filenaming errors and resulting name is typically PascalCase
         try:
             self.current_title = ''.join([i for i in self.driver.title if i.isalnum()])
@@ -221,8 +222,8 @@ class Scraper:
                     self.coords[value] = location
             except ImageNotFoundException:
                 pass
-            # if over ten seconds has elapsed without successful identification of image, loading is assumed to have finished and loop is automatically broken
-            if (datetime.now() - start_time).total_seconds() > 10:
+            # if over fifteen seconds has elapsed without successful identification of image, loading is assumed to have finished and loop is automatically broken
+            if (datetime.now() - start_time).total_seconds() > 15:
                 break
         # locating by coordinates is used
         if bycoords is True:
@@ -292,10 +293,16 @@ class Scraper:
                 location = pyautogui.locateCenterOnScreen(image='images/download_icon.png', confidence=0.8)
                 # identifies if there is data present (when data is present the below image is also present)
                 loaded = pyautogui.locateCenterOnScreen(image='images/loaded_icon.png', confidence=0.7)
+                # if no results are yielded (when no data available the below image is present)
+                if pyautogui.locateCenterOnScreen(image='images/nores_icon.png', confidence=0.7) is not None:
+                    return None
             except ImageNotFoundException:
                 pass
             # if 5 seconds have elapsed and the data/loaded image is not present, the data is taken to be unavailable and scraper moves on
-            if (datetime.now() - start_time).total_seconds() > 5:
+            # important: this should be more than enough for most articles. If one has a large number of less intensive articles and would like to speed up the script,
+            # one can change the wait time to less.
+            # conversely if one has a couple articles with lots of 
+            if (datetime.now() - start_time).total_seconds() > 10:
                 if loaded is None:
                     print('May have missed {} data for {} (no data available)'.\
                           format(social_media, self.current_title))
@@ -327,13 +334,13 @@ class Scraper:
                       os.path.join('downloads', new_name))
         # if one has already run the script on the article there will already be a file with the given name there. This will throw an os error.
         # to solve for this, we add an incremented integer to the back until a fresh name is availabe. Note that exception type may need to be changed for different OS.
-        except WindowsError:
+        except OSError:
             count = 1
             while True:
                 try:
                     os.rename(os.path.join('downloads', fname),
                               os.path.join('downloads', ''.join((new_name[:-4], '(', str(count), ')', '.csv'))))
-                except WindowsError:
+                except OSError:
                     count += 1
                 else:
                     break
@@ -347,9 +354,9 @@ def main():
     # runs primary_setup/priming of scraper.
     scraper.primary_setup()
     # main loop that loops through each article link and extracts data
-    for link in scraper.links:
+    for row, link in enumerate(scraper.links):
         # enters/setsup article. Skips article if invalid url.
-        if scraper.enter(link):
+        if scraper.enter(link, row+1):
             # reopens CrowdTangle
             scraper.click('crowdtangle', conf=0.7, image='images/crowdtangle_icon.png', bycoords=True)
             # downloads Facebook data
